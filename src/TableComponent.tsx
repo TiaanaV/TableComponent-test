@@ -3,30 +3,55 @@ import {Button,Table} from "antd";
 import { SearchBar } from "./SearchBar";
 import { EditRowModal } from "./EditRowModal";
 
+interface Data {
+    key: string;
+    number: number;
+    name: string;
+    date: Date;
+    action: string;
+    }
+
+  const defaultData: Data[] = [
+    {
+    key: "1",
+    number: 1,
+    name: "John Doe",
+    date: new Date(1632448800000),
+    action: "Edit"
+    },
+    {
+    key: "2",
+    number: 2,
+    name: "Jane Smith",
+    date: new Date(1632693600000),
+    action: "Delete"
+    },
+    ]
+
 
 export const TableComponent = () => {
-    const [tableData,setTableData] = useState<string[]>([]);
-    const [searchValue, setSearchValue] = useState<string>("");
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [tableData,setTableData] = useState<Data[]>(defaultData);
+    //const [searchValue, setSearchValue] = useState<string>("");
+    const [showModal, setShowModal] = useState(false);
 
-  const handleAddRow = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleModalSave = (rowData: string | null) => {
-    setIsModalVisible(false);
-    if (rowData) {
-        setTableData([...tableData, rowData]);
-    }
-  };
-
-  const handleModalCancel = () => {
-    setIsModalVisible(false);
-  };
-
-    const handleSearch = (value: string) => {
-        setSearchValue(value);
+    const handleAddRow = () => {
+        setShowModal(true);
       };
+
+    const handleCancelEdit = () => {
+        setShowModal(false);
+      };
+
+  const handleAddData = (data: Data) => {
+    debugger
+    console.log(tableData)
+    setTableData([...tableData, data]);
+    setShowModal(false);
+  };
+
+    // const handleSearch = (value: string) => {
+    //     setSearchValue(value);
+    //   };
       
 
     const columns = [
@@ -34,42 +59,39 @@ export const TableComponent = () => {
         title: "Name",
         dataIndex: "name",
         key: "name",
+        editable: true,
         },
-        {
-        title: "Data",
-        dataIndex: "data",
-        key: "data",
+        { 
+        title: "Date",
+        dataIndex: "date",
+        key: "date",
+        editable: true,
         },
         {
         title: "Number",
         dataIndex: "number",
         key: "Number",
+        editable: true,
         },
         {
         title: "Action",
         dataIndex: "action",
         key: "action",
+        editable: true,
         },
     ];
 
-    const dataSource = tableData.map((data,index) => ({
-        key:index,
-        data,
-    })
-    )
-    const dataSourceFiltered = dataSource.filter((data) =>
-  data.data.includes(searchValue)
-);
+    
+//    const dataSourceFiltered = dataSource.filter((data) =>
+//   data.data.includes(searchValue)
+// );  - поиск и сортировка
 
        return(
         <>
         <Button onClick={handleAddRow}>Add row</Button>
-        <EditRowModal 
-                   visible={isModalVisible}
-                   onSave={handleModalSave}
-                   onCancel={handleModalCancel} initialValue={""}      />
-        <SearchBar onSearch={handleSearch}/>
-        <Table dataSource={dataSourceFiltered} columns={columns}></Table>
+        {showModal && <EditRowModal onAdd={handleAddData} onCancel={handleCancelEdit} />}
+       {/* // <SearchBar onSearch={handleSearch}/> */}
+        <Table dataSource={tableData} columns={columns}></Table>
         </>
        ) 
 }
