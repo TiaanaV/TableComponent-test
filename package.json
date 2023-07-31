@@ -2,7 +2,7 @@
   "name": "table-component-test",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://TiaanaV.github.io.TableComponent-test",
+  "homepage": "https://TiaanaV.github.io/TableComponent-test",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",

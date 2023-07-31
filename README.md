@@ -1,4 +1,5 @@
-This is a test case: a table component, with multiple columns.
+#This is a test case: a table component, with multiple columns 
+https://tiaanav.github.io/TableComponent-test/
 
 Implemented:
  - table with columns name, date, numerical value, actions;
