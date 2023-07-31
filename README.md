@@ -10,13 +10,11 @@ Implemented:
 - search in all cells of tables;
 - sorting by all columns, depending on the type of value in the column.
 
-
-This project was bootstrapped with [Create React App].
-
 ### Built with
 
-- [Create React App]
+- Create React App + TS
 - Ant Design 5.0
+- Ant Design Forms 
 - Moment.js
 - CSS modules
 - Flexbox
