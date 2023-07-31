@@ -1,11 +1,10 @@
-import './App.css';
-import { TableComponent } from './TableComponent';
+import {TableComponent} from './components/TableComponent';
 
 
 function App() {
   return (
     <div className="App">
-      <TableComponent/>
+      <TableComponent />
     </div>
   );
 }
