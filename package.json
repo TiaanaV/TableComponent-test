@@ -17,6 +17,7 @@
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",
+    "uuid": "^9.0.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -25,7 +26,12 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint:ts": "eslint **/*.ts{,x}",
+    "lint:ts:fix": "eslint **/*.ts{,x} --fix",
+    "lint:scss": "npx stylelint \"**/*.scss\"",
+    "lint:scss:fix": "npx stylelint \"**/*.scss\" --fix",
+    "format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,md,json}"
   },
   "eslintConfig": {
     "extends": [
@@ -46,6 +52,8 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^5.0.0"
+    "@types/uuid": "^9.0.2",
+    "gh-pages": "^5.0.0",
+    "prettier": "3.0.0"
   }
 }
