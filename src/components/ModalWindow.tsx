@@ -1,42 +1,26 @@
 import React from 'react';
-import { Modal, Input, Form } from 'antd';
-import { FormInstance } from "antd/lib/form";
 
-  interface Props {
-    form: FormInstance;
+import { Modal } from 'antd';
+
+import { FormDto } from '../types/form.dto';
+
+import { ModalForm } from './ModalForm';
+
+interface ModalWindowProps {
     isOpen: boolean;
+    onSubmit: (data: FormDto) => void;
     onCancel: () => void;
-    onOk:() => Promise<void>;
+    formData?: FormDto;
+}
 
-  }
-  
-export const ModalWindow: React.FC<Props> = ({ form, isOpen,onCancel, onOk}) => {
-   
-  return (
-    <Modal open={isOpen} onCancel={onCancel} onOk={onOk} destroyOnClose >
-      <Form form={form} layout="vertical">
-          <Form.Item
-            name="name"
-            label="Name"
-            rules={[{ required: true, message: 'Please enter name' }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="date"
-            label="Date"
-            rules={[{ required: true, message: 'Please select date' }]}
-          >
-            <Input type="date" />
-          </Form.Item>
-          <Form.Item
-            name="value"
-            label="Value"
-            rules={[{ required: true, message: 'Please enter value' }]}
-          >
-            <Input type="number" />
-          </Form.Item>
-        </Form>
-      </Modal>
-  );
+export const ModalWindow: React.FC<ModalWindowProps> = ({ formData, onSubmit, isOpen, onCancel }) => {
+    const handleSubmit = (formDto: FormDto) => {
+        onSubmit(formDto);
+    };
+
+    return (
+        <Modal open={isOpen} footer={null} onCancel={onCancel} destroyOnClose>
+            <ModalForm handleSubmit={handleSubmit} onCancel={onCancel} formData={formData} />
+        </Modal>
+    );
 };

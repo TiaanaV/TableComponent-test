@@ -1,125 +1,155 @@
 import React, { useState } from 'react';
-import { Table, Form, Button, Modal } from 'antd';
-import { SearchBar } from './SearchBar';
-import { ModalWindow } from './ModalWindow';
-import style from '../styles/TableComponent.module.css';
 
-interface TableItem {
-  [key: string]: string | number;
-  id: number;
-  name: string;
-  date: string;
-  value: number;
-}
+import type { TableItem } from '@types';
+import { Button, Table } from 'antd';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { Dayjs } from 'dayjs';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import styled from 'styled-components';
+import { v4 as uuid } from 'uuid';
+
+import { FormDto } from '../types/form.dto';
+
+import { ModalWindow } from './ModalWindow';
+import { SearchBar } from './SearchBar';
+
+const TableHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+`;
+
+const TableComponentWrapper = styled.div`
+    padding: 2rem 0;
+`;
+
+const TableRowActions = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+`;
 
 export const TableComponent: React.FC = () => {
-  const [data, setData] = useState<TableItem[]>([]);
-  const [modalVisible, setModalVisible] = useState(false);
+    const [initialData, setInitialData] = useState<TableItem[]>([]);
+    const [filteredData, setFilteredData] = useState<TableItem[] | null>(null);
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [selectedItem, setSelectedItem] = useState<TableItem | null>(null);
 
-  const [form] = Form.useForm();
-
-  const handleAdd = () => {
-    setModalVisible(true);
-  };
-
-  const handleEdit = (record: TableItem) => {
-    form.setFieldsValue(record);
-    setModalVisible(true);
-  };
-
-  const handleDelete = (record: TableItem) => {
-    setData(data.filter(item => item.id !== record.id));
-  };
-
-  const handleSave = async () => {
-    try {
-        const values = await form.validateFields();
-        
-        const newItem: TableItem = {
-        id: data.length + 1,
-          ...values
-        };
-        
-        setData([...data, newItem]);
-        form.resetFields();
-        setModalVisible(false);
-      } catch (error) {
-        console.error( error);
-      }
-  };
-
-  const columns = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-      sorter: (a: TableItem, b: TableItem) => a.name.localeCompare(b.name)
-    },
-    {
-      title: 'Date',
-      dataIndex: 'date',
-      key: 'date',
-      sorter: (a: TableItem, b: TableItem) => new Date(a.date).getTime() - new Date(b.date).getTime()
-    },
-    {
-      title: 'Value',
-      dataIndex: 'value',
-      key: 'value',
-      sorter: (a: TableItem, b: TableItem) => a.value - b.value
-    },
-    {
-      title: 'Actions',
-      dataIndex: 'actions',
-      key: 'actions',
-      render: (_: any, record: TableItem) => (
-        <>
-          <Button type="link" onClick={() => handleEdit(record)}>Edit</Button>
-          <Button type="link" onClick={() => handleDelete(record)}>Delete</Button>
-        </>
-      )
-    }
-  ];
-
-  const handleSearch = (value: string) => {
-    let filteredData;
-    if (value === "") {
-      filteredData = data;
-    } else {
-      filteredData = data.filter(item => {
-    for (const key in item) {
-      const cellValue = String(item[key]);
-    if (cellValue.toLowerCase().includes(value.toLowerCase())) {
-     return true;
-    }
-    }
-      return false;
-    });
-    }
-    if (filteredData.length === 0) {
-        Modal.error({
-            title: 'Error',
-            content: 'Invalid search data entered',
-          });
-          return;
-    } 
-    setData(filteredData);
+    const handleModal = () => setIsModalVisible((prev) => !prev);
+    const onModalClose = () => {
+        setSelectedItem(null);
+        handleModal();
     };
 
+    const handleAdd = () => {
+        setIsModalVisible(true);
+    };
 
-  return (
-    <>
-    <div className={style.container}>
-        <SearchBar  onSearch={handleSearch} />
-        <Button type="primary" onClick={handleAdd}>Add</Button>
-     </div>
-     <Table dataSource={data} columns={columns} />
-     <ModalWindow
-        form ={form}
-        isOpen={modalVisible}
-        onCancel={() => setModalVisible(false)}
-        onOk={handleSave} 
-      />
-    </>
-  );
+    const handleEdit = (item: TableItem) => {
+        setSelectedItem(item);
+        setIsModalVisible(true);
+    };
+
+    const handleDelete = (record: TableItem) => {
+        setInitialData(initialData.filter((item) => item.id !== record.id));
+    };
+
+    const handleCreate = (formDto: FormDto) => {
+        const newItem: TableItem = {
+            id: uuid(),
+            ...formDto,
+        };
+        setInitialData((prev) => [...prev, newItem]);
+        setIsModalVisible(false);
+    };
+
+    const handleUpdate = (formDto: FormDto) => {
+        setInitialData((prev) => {
+            return prev.reduce((acc: TableItem[], currentValue) => {
+                if (currentValue.id === selectedItem.id) {
+                    const updatedItem: TableItem = {
+                        id: selectedItem.id,
+                        ...formDto,
+                    };
+                    return [...acc, updatedItem];
+                }
+                return [...acc, currentValue];
+            }, []);
+        });
+        setSelectedItem(null);
+        setIsModalVisible(false);
+    };
+
+    const handleSave = async (formDto: FormDto) => {
+        setFilteredData(null);
+        const isElementSelected = !!selectedItem;
+        return isElementSelected ? handleUpdate(formDto) : handleCreate(formDto);
+    };
+
+    const handleSearch = (searchTerm: string) => {
+        if (!searchTerm) {
+            setFilteredData(null);
+        }
+        const regex = new RegExp(searchTerm, 'i');
+        const preparedFilteredData = initialData.filter(({ name, value, date }) =>
+            Object.values({ name, value, date }).find((value) => regex.test(value.toString())),
+        );
+        setFilteredData(preparedFilteredData);
+    };
+
+    const columns = [
+        {
+            title: 'Имя',
+            dataIndex: 'name',
+            key: 'name',
+            sorter: (a: TableItem, b: TableItem) => a.name.localeCompare(b.name),
+        },
+        {
+            title: 'Дата',
+            dataIndex: 'date',
+            key: 'date',
+            sorter: ({ date: firstDate }: TableItem, { date: secondDate }: TableItem) =>
+                firstDate.unix() - secondDate.unix(),
+            render: (value: Dayjs) => value.format('DD.MM.YYYY'),
+        },
+        {
+            title: 'Числовое значение',
+            dataIndex: 'value',
+            key: 'value',
+            sorter: (a: TableItem, b: TableItem) => a.value - b.value,
+        },
+        {
+            title: 'Действия',
+            dataIndex: 'actions',
+            key: 'actions',
+            render: (_: never, record: TableItem) => (
+                <TableRowActions>
+                    <Button type="link" onClick={() => handleDelete(record)}>
+                        Удалить
+                    </Button>
+                    <Button type="link" onClick={() => handleEdit(record)}>
+                        Редактировать
+                    </Button>
+                </TableRowActions>
+            ),
+        },
+    ];
+
+    return (
+        <TableComponentWrapper>
+            <TableHeader>
+                <SearchBar onSearch={handleSearch} />
+                <Button type="primary" onClick={handleAdd}>
+                    Добавить
+                </Button>
+            </TableHeader>
+            <Table rowKey="id" dataSource={filteredData ?? initialData} columns={columns} />
+            <ModalWindow
+                formData={selectedItem}
+                onCancel={onModalClose}
+                onSubmit={handleSave}
+                isOpen={isModalVisible}
+            />
+        </TableComponentWrapper>
+    );
 };
-

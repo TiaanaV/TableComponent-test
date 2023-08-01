@@ -1,0 +1,103 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "react",
+      "import",
+      "@typescript-eslint",
+      "unused-imports"
+    ],
+    "extends": [
+      "airbnb-typescript",
+      "airbnb/hooks",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:prettier/recommended",
+      "plugin:import/recommended",
+      "plugin:import/typescript",
+      "plugin:import/errors",
+      "plugin:import/warnings",
+      "plugin:import/typescript"
+    ],
+    "rules": {
+      "prettier/prettier": ["error", { "endOfLine": "auto" }],
+      "no-var": "error",
+      "no-prototype-builtins": "off",
+      "no-use-before-define": "off",
+      "@typescript-eslint/explicit-module-boundary-types": "off",
+      "react/prop-types": 1,
+      "react/display-name": 1,
+      "no-console": ["warn", { "allow": ["warn", "error"] }],
+      "react-hooks/exhaustive-deps": "off",
+      "react/react-in-jsx-scope": 0,
+      "import/named": "warn",
+      "import/namespace": "warn",
+      "import/no-named-as-default": "off",
+      "import/export": "warn",
+      "import/order": [
+        "error",
+        {
+          "groups": ["builtin", "external", "parent", "sibling", "index"],
+          "pathGroups": [
+            {
+              "pattern": "react",
+              "group": "external",
+              "position": "before"
+            }
+          ],
+          "pathGroupsExcludedImportTypes": ["react"],
+          "newlines-between": "always",
+          "alphabetize": {
+            "order": "asc",
+            "caseInsensitive": true
+          }
+        }
+      ],
+      "no-unused-vars": "off",
+      "unused-imports/no-unused-imports": "error",
+      "unused-imports/no-unused-vars": [
+        "warn",
+        { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
+      ],
+      "sort-imports": [
+        "error",
+        {
+          "ignoreCase": false,
+          "ignoreDeclarationSort": true,
+          "ignoreMemberSort": false,
+          "memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
+          "allowSeparatedGroups": true
+        }
+      ],
+      "@typescript-eslint/naming-convention": "off",
+      "import/no-unresolved": "off",
+      "@typescript-eslint/no-shadow": "off",
+      "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
+    },
+    "env": {
+      "browser": true,
+      "es6": true
+    },
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": 2018,
+      "sourceType": "module",
+      "project": "./tsconfig.json"
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      },
+      "typescript": {
+        "project": "./tsconfig.json"
+      }
+    },
+    "overrides": [{
+      "files": ["./config/**/*.ts"],
+      "rules": {
+        "import/no-extraneous-dependencies": "off",
+        "@typescript-eslint/no-var-requires": "off"
+      }
+    }]
+  }
