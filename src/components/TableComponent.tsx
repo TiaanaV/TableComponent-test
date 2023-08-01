@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 
 import type { TableItem } from '@types';
 import { Button, Table } from 'antd';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { Dayjs } from 'dayjs';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 

@@ -1,9 +1,7 @@
-/* eslint-disable react/react-in-jsx-scope */
 import React from 'react';
 
 import { ConfigProvider, Layout } from 'antd';
 import ruRU from 'antd/locale/ru_RU';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import styled from 'styled-components';
 
 import 'antd/dist/reset.css';

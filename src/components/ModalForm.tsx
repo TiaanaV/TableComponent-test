@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 
 import { Button, DatePicker, Form, Input, InputNumber } from 'antd';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import styled from 'styled-components';
 
 import type { FormDto } from '../types/form.dto';
