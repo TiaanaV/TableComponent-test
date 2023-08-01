@@ -1,1 +1,1 @@
-export * from './create-form.dto';
+export * from './table-item.interface';

@@ -9,7 +9,7 @@ interface SearchBarProps {
 export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
     return (
         <div>
-            <Input.Search placeholder="Search in table" onSearch={onSearch} enterButton />
+            <Input.Search placeholder="Поиск..." onSearch={onSearch} enterButton />
         </div>
     );
 };

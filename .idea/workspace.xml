@@ -5,18 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e13a6864-3159-43f4-b3ba-a20fd125bca7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/types/create-form.dto.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/types/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ModalForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/types/form.dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/types/table-item.interface.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ModalWindow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ModalWindow.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/SearchBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchBar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/TableComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TableComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reportWebVitals.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/reportWebVitals.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setupTests.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/setupTests.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/TableComponent.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/create-form.dto.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,9 +92,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.start" />
         <item itemvalue="npm.lint:ts:fix" />
         <item itemvalue="npm.lint:scss:fix" />
-        <item itemvalue="npm.start" />
       </list>
     </recent_temporary>
   </component>
@@ -104,7 +107,7 @@
       <option name="presentableId" value="Default" />
       <updated>1690805489233</updated>
       <workItem from="1690805490286" duration="4315000" />
-      <workItem from="1690815180758" duration="3589000" />
+      <workItem from="1690815180758" duration="7101000" />
     </task>
     <servers />
   </component>
