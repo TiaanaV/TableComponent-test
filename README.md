@@ -16,5 +16,5 @@ Implemented:
 - Ant Design 5.0
 - Ant Design Forms 
 - Moment.js
-- CSS modules
-- Flexbox
+- Styled-components
+
